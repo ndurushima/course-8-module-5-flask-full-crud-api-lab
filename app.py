@@ -32,7 +32,7 @@ def create_event():
 @app.route("/events/<int:event_id>", methods=["PATCH"])
 def update_event(event_id):
     data = request.get_json()
-    event = next((e for e in events if e.id == id), None)
+    event = next((e for e in events if e.id == event_id), None)
     if not event:
         return ("Event not found", 404)
     if "title" in data:
@@ -44,10 +44,10 @@ def update_event(event_id):
 @app.route("/events/<int:event_id>", methods=["DELETE"])
 def delete_event(event_id):
     global events
-    event = next((e for e in events if e.id == id), None)
+    event = next((e for e in events if e.id == event_id), None)
     if not event:
         return ("Event not found", 404)
-    events = [e for e in events if e.id != id]
+    events = [e for e in events if e.id != event_id]
     return ("Event deleted", 204)
 
 if __name__ == "__main__":
